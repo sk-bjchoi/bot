@@ -1,0 +1,218 @@
+<!doctype html>
+<html class="no-js" lang="">
+	<head>
+		<meta charset="euc-kr">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>jQuery.FbMessenger demo</title>
+
+		<style>
+			body, html {
+				margin: 0;
+				padding: 0;
+				background: #fff;
+			}
+			div.vcenter {
+				margin: 5vh auto 0;
+				height: 95vh;
+				width: 100%;
+				text-align: center;
+			}
+			div.iphone-wrapper {
+				display: inline-block;
+				width: auto;
+				height: 100%;
+				position: relative;
+			}
+			div.iphone-wrapper > img {
+				height: 100%;
+				width: auto;
+				display: block;
+			}
+			div.screen-content {
+				position: absolute;
+				top: 10.8985%;
+				bottom: 20%;
+				left: 14.65%;
+				right: 16.8%;
+				background: #000;
+				border-radius: 3px;
+				overflow: hidden;
+			}
+		</style>
+
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="../src/js/jquery.fbmessenger.js"></script>
+		<link rel="stylesheet" href="../dist/jquery.fbmessenger.css">
+	</head>
+	<body>
+		<div class="vcenter">
+			<div class="iphone-wrapper">
+				<img alt="iPhone 6 white" src="https://botpreview.com/assets/images/iphone6s-white.png" />
+				<div class="screen-content">
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function() {
+				var now = new Date();
+				$('.screen-content').fbMessenger({
+						botName: '회의실 예약 챗봇',
+						botBannerUrl: 'unsplash-presentfinder-banner-luca-upper.jpg',
+						botLogoUrl: 'emoti1.png',
+						botWelcomeMessage: 'Present Finder helps you finding lovely and unique gifts for any occasion. Just answer a few questions and you\'re all set!',
+						likes: {
+							totalCount: 25123,
+							friendName: 'John Doe',
+							otherFriendsCount: 42
+						},
+						loop: true
+					})
+					.fbMessenger('start', { delay: 0 } )
+					.fbMessenger('message', 'bot', '안녕하세요. 회의실 예약 챗봇입니다.<br>회의실 예약이나 사용 안내를 도와 드려요', { timestamp: now, delay: 1000 })
+					.fbMessenger('message', 'user', '넌 뭘 할 수 있니?', { timestamp: now, delay: 1000 })
+					.fbMessenger('typingIndicator', { delay: 2000 })
+					.fbMessenger('showButtonTemplate', '네, 저는 아래와 같은 질문에 답변을 해 드릴 수 있어요.', [ '회의실 예약해줘', '회의실은 어디 있나요?' ], { delay: 1000 })
+					.fbMessenger('selectButtonTemplate', 0, { delay: 2000 })
+					.fbMessenger('typingIndicator', { delay: 500 })
+					.fbMessenger('message', 'bot', '다음중 어느 회의실을 원하시나요?', { timestamp: now, delay: 1000 })
+					.fbMessenger('showGenericTemplate', [
+						{
+							imageUrl: 'room1.png',
+							title: 'SUPEX 회의실',
+							subtitle: '27층 / 120명',
+							buttons: [
+								'SUPEX 회의실'
+							]
+						},
+						{
+							imageUrl: 'room2.png',
+							title: '행복 회의실',
+							subtitle: '9층 / 15명',
+							buttons: [
+								'행복 회의실'
+							]
+						},
+						{
+							imageUrl: 'room3.png',
+							title: '패기 회의실',
+							subtitle: '9층 / 20명',
+							buttons: [
+								'패기 회의실'
+							]
+						}
+					], { timestamp: now, delay: 0 })
+					.fbMessenger('scrollGenericTemplate', 1, { delay: 1000 })
+					.fbMessenger('scrollGenericTemplate', 2, { delay: 1000 })
+					.fbMessenger('scrollGenericTemplate', 1, { delay: 1000 })
+					.fbMessenger('selectGenericTemplate', 0, { delay: 1000 })
+					.fbMessenger('typingIndicator', { delay: 500 })
+					.fbMessenger('message', 'bot', '날짜를 선택하거나 입력해 주세요.', { timestamp: now, delay: 0 })
+					.fbMessenger('annotate', "아래 리스트 중 선택하시거나, '내일'과 같이 직접 입력해 주세요.", { delay: 1000 })					
+					.fbMessenger('showQuickReplies', [
+						'4/25',
+						'4/26',
+						'4/27',
+						'4/30',
+						'5/2',
+						'5/3',
+						'5/4',
+						'5/8'
+					], { timestamp: now, delay: 0 })
+					.fbMessenger('scrollQuickReplies', 5, { delay: 3000 })
+					.fbMessenger('scrollQuickReplies', 0, { delay: 1000 })
+					.fbMessenger('scrollQuickReplies', 5, { delay: 1000 })
+					.fbMessenger('selectQuickReply', 6, { delay: 1000 })
+					.fbMessenger('typingIndicator', { delay: 1000 })
+					.fbMessenger('message', 'bot', '시간을 선택하거나 입력해 주세요.', { timestamp: now, delay: 1000 })
+					.fbMessenger('showQuickReplies', [
+						'09:00',
+						'11:00',
+						'13:00',
+						'16:00',
+						'17:00'
+					], { timestamp: now, delay: 0 })
+					.fbMessenger('selectQuickReply', 2, { delay: 2000 })
+					.fbMessenger('typingIndicator', { delay: 1000 })
+					.fbMessenger('message', 'bot', '감사합니다.<br>회의실 예약이 정상으로 완료 되었습니다.', { timestamp: now, delay: 1000 })
+					.fbMessenger('typingIndicator', { delay: 1000 })
+
+					/*
+					.fbMessenger('message', 'user', 'Foo', { timestamp: now, delay: 2000 })
+					.fbMessenger('annotate', 'Hello World! This is a really long annotation and I am wondering how this will turn out to look like.', { delay: 0 })
+					.fbMessenger('message', 'user', 'Foo', { timestamp: now, delay: 2000 })
+					.fbMessenger('annotate', 'Hello World! This is a really long annotation and I am wondering how this will turn out to look like.', { delay: 0 })
+					.fbMessenger('message', 'user', 'Foo', { timestamp: now, delay: 2000 })
+					.fbMessenger('annotate', 'Hello World! This is a really long annotation and I am wondering how this will turn out to look like.', { delay: 0 })
+					.fbMessenger('message', 'user', 'Foo', { timestamp: now, delay: 2000 })
+					.fbMessenger('annotate', 'Hello World! This is a really long annotation and I am wondering how this will turn out to look like.', { delay: 0 })
+					.fbMessenger('message', 'user', 'Foo', { timestamp: now, delay: 2000 })
+					.fbMessenger('annotate', 'Hello World! This is a really long annotation and I am wondering how this will turn out to look like.', { delay: 0 })
+
+					
+					.fbMessenger('typingIndicator', { delay: 500 })
+					.fbMessenger('message', 'bot', 'Hey there! I am Present Finder, your friendly bot to help you finding... well, you guessed it.', { timestamp: now, delay: 2000 })
+					.fbMessenger('typingIndicator', { delay: 3000 })
+					.fbMessenger('message', 'bot', 'Let\'s start with the basics, what\'s your budget? Select from the options below or enter an exact amount as a limit.', { timestamp: now, delay: 4000 })
+					.fbMessenger('showQuickReplies', [
+						'Less than 5$',
+						'Up to 20$',
+						'Up to 50$',
+						'Up to 100$',
+						'Money doesn\'t matter.'
+					], { timestamp: now, delay: 0 })
+					.fbMessenger('scrollQuickReplies', 3, { delay: 4000 })
+					.fbMessenger('scrollQuickReplies', 0, { delay: 1000 })
+					.fbMessenger('scrollQuickReplies', 4, { delay: 1000 })
+					.fbMessenger('selectQuickReply', 4, { delay: 1000 })
+					.fbMessenger('typingIndicator', { delay: 1000 })
+					.fbMessenger('message', 'bot', 'Best thing I\'ve heard today!', { timestamp: now, delay: 1000 })
+					.fbMessenger('typingIndicator', { delay: 500 })
+					.fbMessenger('message', 'bot', 'Let\'s narrow things down. What\'s the occasion?', { timestamp: now, delay: 1000 })
+					.fbMessenger('showGenericTemplate', [
+						{
+							imageUrl: 'unsplash-birthday-annie-spratt.jpg',
+							title: 'Birthday',
+							subtitle: 'Find presents for a birthday.',
+							buttons: [
+								'Select Birthday'
+							]
+						},
+						{
+							imageUrl: 'unsplash-christmas-darren-coleshill.jpg',
+							title: 'Christmas',
+							subtitle: 'Find seasonal presents for Christmas.',
+							buttons: [
+								'Select Christmas'
+							]
+						},
+						{
+							imageUrl: 'unsplash-wedding-anne-edgar.jpg',
+							title: 'Wedding',
+							subtitle: 'Find presents for bride and groom.',
+							buttons: [
+								'Select Wedding'
+							]
+						}
+					], { timestamp: now, delay: 2000 })
+					.fbMessenger('scrollGenericTemplate', 1, { delay: 1000 })
+					.fbMessenger('scrollGenericTemplate', 2, { delay: 1000 })
+					.fbMessenger('scrollGenericTemplate', 1, { delay: 1000 })
+					.fbMessenger('selectGenericTemplate', 0, { delay: 1000 })
+					.fbMessenger('typingIndicator', { delay: 500 })
+					.fbMessenger('message', 'bot', 'Awwww... so it\'s that time of the year again! �윃낊윃꾭윃�', { timestamp: now, delay: 2000 })
+					.fbMessenger('typingIndicator', { delay: 500 })
+					.fbMessenger('showButtonTemplate', 'Who\'s the present for?', [
+						'Significant Other',
+						'Family or close friend',
+						'Acquaintance or colleague',
+						'Business partner'
+					], { timestamp: now, delay: 1000})
+
+					.fbMessenger('message', 'user', 'One more time!', { timestamp: now, delay: 5000 })
+					*/
+					.fbMessenger('run');
+			});
+		</script>
+	</body>
+</html>
