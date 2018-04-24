@@ -156,10 +156,6 @@ function fnSend(api_key){
 		return false;
 	}
 	
-	if(conText.system.dialog_stack[0].state == 'in_progress'){
-		//conText.system.dialog_stack[0].dialog_node = '';
-	}
-	
 	var data ={};
     data.api_key = api_key;
     data.text = msg;
