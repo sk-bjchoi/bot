@@ -151,11 +151,6 @@ function fnSend(api_key){
 		return false;
 	}
 	
-	if(msg.trim() == '처음으로' || msg.trim() == '처음 으로'){
-		location.reload();
-		return false;
-	}
-	
 	var data ={};
     data.api_key = api_key;
     data.text = msg;
