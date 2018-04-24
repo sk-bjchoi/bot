@@ -18,44 +18,9 @@ function getText(result) {
 		s = anythingMsg;
 	}
 		
-	//$('#wsdk_talk_app').find('.aibril .box').last().html("<span>"+s+"</span>");	
-	
-	if(s.indexOf("<br><br>")>0){
-		msgList = s.split("<br><br>");
-		msgTimer = setInterval(function(){
-			putMultiMessage();
-		}, 1000);	
-	}
-	else{
-		putSimpleMessage(s);		
-	}	
+	$('#wsdk_talk_app').find('.aibril .box').last().html("<span>"+s+"</span>");	
 }
 
-function putSimpleMessage(s){
-	$('#wsdk_talk_app').find('.aibril .box').last().html("<span>"+s+"</span>");
-}
-
-function putMultiMessage(){
-	
-	if(msgCounter < msgList.length-1) {
-		$('#wsdk_talk_app').find('.aibril .box').last().html("<span>"+msgList[msgCounter++]+"</span>");
-
-		$("#messageText").val("Loading...");
-		$('#messageText').attr('readonly', true);
-		$("#wsdk_talk_app").append("<p class='aibril'><span class='box'><span class='write'></span></span></p>");
-	}
-	else{
-		$('#wsdk_talk_app').find('.aibril .box').last().html("<span>"+msgList[msgCounter++]+"</span>");
-		$("#messageText").val("");
-		$('#messageText').attr('readonly', false);		
-		window.clearInterval(msgTimer);
-	}
-}
-
-function sleep(delay){
-	var start = new Date().getTime();
-	while(new Date().getTime() < start + delay);
-}
 
 function getList(result) {
 	var s = ""
